@@ -48,12 +48,19 @@ function getWorkHours(){
 	echo $WorkTimeInHour
 }
 
-#loop till total hours has reached 100 or max working days In month has reached 20
+# function to get per day wage of employee
+function getEmpWages(){
+	empHours=$1
+	echo $(( $WorkTimeInHour * $wagePerHour ))
+}
+
+# loop till total hours has reached 100 or max working days In month has reached 20
 while [[ $totalHours -le $maxHoursInMonth && $maxWorkDaysInMonth -le $daysPerMonth ]]
 do
 	((maxWorkDaysInMonth++))
 	WorkTimeInHour=$( getWorkHours $(($((RANDOM%2))+1)) )
 	totalHours=$(( $totalHours + $WorkTimeInHour ))
+	dailyWages[$maxWorkDaysInMonth]=$( getEmpWages $WorkTimeInHour)
 done
 
 totalSalary=$(( $totalHours * $wagePerHour ))
@@ -61,6 +68,7 @@ totalSalary=$(( $totalHours * $wagePerHour ))
 echo "Total working days are $maxWorkDaysInMonth and working hours are $totalHours "
 echo "Total salary : $totalSalary"
 
+echo "DailyWages: ${dailyWages[@]}"
 
 
 
