@@ -29,13 +29,9 @@ maxHoursInMonth=100
 totalHours=0
 maxWorkDaysInMonth=0
 
- 
-
-while [[ $totalHours -le $maxHoursInMonth && $maxWorkDaysInMonth -le $daysPerMonth ]]
-do
-	((maxWorkDaysInMonth++))
-	randomCheck=$(($((RANDOM%2))+1));
-	case $randomCheck in
+#function that returns the Work Time in Hours as per Part Time and Full Time
+function getWorkHours(){
+	case $1 in
 		$isPartTime)
 				WorkTimeInHour=4
 				DailyWage=$(( $wagePerHour * $partTimeHour ))
@@ -48,14 +44,22 @@ do
 				;;
 		*)
 				echo "Employee Unidentified"
-esac
-totalHours=$(( $totalHours + $WorkTimeInHour ))
+	esac
+	echo $WorkTimeInHour
+}
+
+#loop till total hours has reached 100 or max working days In month has reached 20
+while [[ $totalHours -le $maxHoursInMonth && $maxWorkDaysInMonth -le $daysPerMonth ]]
+do
+	((maxWorkDaysInMonth++))
+	WorkTimeInHour=$( getWorkHours $(($((RANDOM%2))+1)) )
+	totalHours=$(( $totalHours + $WorkTimeInHour ))
 done
 
 totalSalary=$(( $totalHours * $wagePerHour ))
 
 echo "Total working days are $maxWorkDaysInMonth and working hours are $totalHours "
-echo "Total salary : $totalSalary "
+echo "Total salary : $totalSalary"
 
 
 
