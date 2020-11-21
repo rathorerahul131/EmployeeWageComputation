@@ -5,6 +5,7 @@ echo "Welcome to the Employee Wage Computation Program"
 empAttendance=$(( $RANDOM % 2 )) #Generates 0 or 1 randomly and assign it to the empAttendance variable
 
 #Conditon for Attendance Check
+
 if [[ $empAttendance -eq 0 ]]
 then
 	echo "Employee is Absent"
@@ -20,4 +21,12 @@ fullDayHour=8
 dailyWage=$(( $wagePerHour * $fullDayHour ))
 
 echo "The daily wage for the employee working full day is $dailyWage"
+
+# Adding Part time Employee and Calculating its Wage
+
+partTimeHour=4
+
+partTimeWage=$(( $wagePerHour * $partTimeHour ))
+
+echo "The Wage of the employee working partime is $partTimeWage"
 
