@@ -12,3 +12,12 @@ else
 	echo "Employee is Present"
 fi
 
+# Calculating and Displaying Daily Wage of the Employee
+
+wagePerHour=20
+fullDayHour=8
+
+dailyWage=$(( $wagePerHour * $fullDayHour ))
+
+echo "The daily wage for the employee working full day is $dailyWage"
+
