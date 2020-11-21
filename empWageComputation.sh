@@ -25,26 +25,37 @@ daysPerMonth=20
 isPartTime=1;
 isFullTime=2;
 
-randomCheck=$(($((RANDOM%2))+1)); 
+maxHoursInMonth=100
+totalHours=0
+maxWorkDaysInMonth=0
 
-case $randomCheck in
-	$isPartTime)
-			DailyWage=$(( $wagePerHour * $partTimeHour ))
-			monthlyWage=$(( $DailyWage * $daysPerMonth ))
+ 
 
-			echo "The employee is working Part Time so his Daily-Wage will be $DailyWage" 
-			echo "and the Monthly-Wage will be $monthlyWage"
-			;;
-	$isFullTime)
-			DailyWage=$(( $wagePerHour * $fullDayHour ))
-			monthlyWage=$(( $DailyWage * $daysPerMonth ))
-
-			echo "The employee is working Full Day so his Daily-Wage will be $DailyWage" 
-			echo "and the Monthly-Wage will be $monthlyWage"
-			;;
-	*)
-		echo "Employee Unidentified"
+while [[ $totalHours -le $maxHoursInMonth && $maxWorkDaysInMonth -le $daysPerMonth ]]
+do
+	((maxWorkDaysInMonth++))
+	randomCheck=$(($((RANDOM%2))+1));
+	case $randomCheck in
+		$isPartTime)
+				WorkTimeInHour=4
+				DailyWage=$(( $wagePerHour * $partTimeHour ))
+				monthlyWage=$(( $DailyWage * $daysPerMonth ))
+				;;
+		$isFullTime)
+				WorkTimeInHour=8
+				DailyWage=$(( $wagePerHour * $fullDayHour ))
+				monthlyWage=$(( $DailyWage * $daysPerMonth ))
+				;;
+		*)
+				echo "Employee Unidentified"
 esac
+totalHours=$(( $totalHours + $WorkTimeInHour ))
+done
+
+totalSalary=$(( $totalHours * $wagePerHour ))
+
+echo "Total working days are $maxWorkDaysInMonth and working hours are $totalHours "
+echo "Total salary : $totalSalary "
 
 
 
